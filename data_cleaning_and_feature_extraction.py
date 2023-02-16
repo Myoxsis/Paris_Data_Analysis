@@ -6,18 +6,10 @@
 #%%
 
 import pandas as pd
-import matplotlib.pyplot as plt
 import re
 import numpy as np
 from datetime import datetime
-import matplotlib # Graphical Visualisation
-import matplotlib.dates as pltdt
-import matplotlib.image as mpimg
-import matplotlib.patches
-import plotly.graph_objects as go 
-# Importing Packages
 import numpy as np
-from matplotlib import animation
 
 from geotree2 import GeoTree
 
@@ -205,6 +197,8 @@ df = pd.read_csv('real_estate_df_geoloc.csv')
 df.drop(columns='Unnamed: 0', axis=1, inplace=True)
 df.head()
 
+#%%
+
 # Feature engineering
 df['property_type'] = df['titre'].apply(lambda x : get_property_type(x))
 df['city'] = df['titre'].apply(lambda x : get_city(x))
@@ -247,54 +241,9 @@ geotree = GeoTree()
 df['city_a'] = df.apply(lambda x : geotree.search_geotree(x.long, x.lat)[0], axis=1)
 df['quartier_a'] = df.apply(lambda x : geotree.search_geotree(x.long, x.lat)[1], axis=1)
 
-
-#%%
-
-# geotree integration to be done 
-t = df.loc[df['quartier_a'] == '', :]
-t['city_a'].value_counts(dropna=False)
-
-#%%
-
-t = df.loc[df['city_a'] == '', :]
-t['city'].value_counts(dropna=False)
-
-#%%
-
-df.head()
-
-#%%
-
-y = t.loc[t['city_a'] == '', :]
-y['titre'].value_counts()
-
-# %%
-
-y.head()
-
 # %%
 
 df.to_csv('real_estate_clean.csv')
 
 # %%
 
-len(df)
-
-
-
-#%%
-
-# %%
-
-# %%
-
-# %%
-
-# %%
-
-# %%
-
-# %%
-
-# %%
-# %%
